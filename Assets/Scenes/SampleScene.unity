@@ -240,7 +240,7 @@ Prefab:
     - target: {fileID: 114482567245020594, guid: f5eee23f42e32c740a46ae6b64fb96e1,
         type: 2}
       propertyPath: sensiY
-      value: 15
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 114482567245020594, guid: f5eee23f42e32c740a46ae6b64fb96e1,
         type: 2}
@@ -275,6 +275,11 @@ Prefab:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 50129134328127070, guid: f5eee23f42e32c740a46ae6b64fb96e1,
+        type: 2}
+      propertyPath: m_LinearDrag
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f5eee23f42e32c740a46ae6b64fb96e1, type: 2}
   m_IsPrefabAsset: 0

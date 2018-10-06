@@ -12,18 +12,22 @@ public class PlayerController : MonoBehaviour {
     private float vertical;
     [SerializeField]
     float DownDetector = 1;
-    
+    [SerializeField]
+    float echo_act_3 = 10;
+
     int layerMask = 1 << 9;
     private bool IsGrounded = true;
     RaycastHit2D hit;
     SpriteRenderer rend;
     bool flip_flop = false;
+    private Vector2 _lastpos = Vector2.zero;
 
     // Use this for initialization
     void Start () {
         rb2 = gameObject.GetComponent<Rigidbody2D>();
         layerMask = ~layerMask;
         rend = gameObject.GetComponent<SpriteRenderer>();
+        _lastpos = transform.position;
     }
 	
 	// Update is called once per frame
@@ -49,17 +53,14 @@ public class PlayerController : MonoBehaviour {
         
         float rawtical = Input.GetAxisRaw("Vertical")*sensiY;
 
-        if (flip_flop == true)
-        {
-            vertical = 0;
-        }
+        
 
         switch (Mathf.RoundToInt(Input.GetAxisRaw("Vertical")))
         {
             case 1:
                 
                 vertical = 1 * sensiY;
-                flip_flop = true;
+                
                 
                 break;
             case -1:
@@ -68,16 +69,23 @@ public class PlayerController : MonoBehaviour {
             case 0:
             
                 vertical = 0;
-                flip_flop = false;
                 break;
             default:
                 Debug.LogWarning("Somehow getaxis did not return -1,0,1");
                 break;
         }
-      
-        
-      
 
+        //if( transform.position.y < _lastpos.y)
+        //{
+        //    rb2.gravityScale = echo_act_3;
+        //}
+        //else
+        //{
+        //    rb2.gravityScale = 1;
+        //}
+        //_lastpos = transform.position;
+
+        
 
         hit = Physics2D.Raycast(transform.position, Vector2.down, DownDetector, layerMask);
         
@@ -88,19 +96,29 @@ public class PlayerController : MonoBehaviour {
                 IsGrounded = false;
                
         }
+
         
-       
+
+
 
         if (IsGrounded == false)
         {
            
             vertical = 0;
         }
-       
         
 
         Move(horizontal, vertical);
-       
+
+        if (IsGrounded == false)
+        {
+            rb2.gravityScale = echo_act_3;
+        }
+        else
+        {
+            rb2.gravityScale = 1;
+        }
+
     }
     private void Move(float horizontal, float vertical)
     {
@@ -130,6 +148,8 @@ public class PlayerController : MonoBehaviour {
         rb2.AddForce(new Vector2(horizontal, vertical)*Time.deltaTime, ForceMode2D.Impulse);
 
     }
+
+    
 
 
 }
