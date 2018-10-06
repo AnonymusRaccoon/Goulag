@@ -12,15 +12,13 @@ public class PlayerController : MonoBehaviour
     float DownDetector = 1;
     [SerializeField]
     float echo_act_3 = 10;
-
-    int layerMask = 1 << 9;
+   int layerMask = 1 << 9;
     private bool IsGrounded = true;
     RaycastHit2D hit;
     SpriteRenderer rend;
-    bool flip_flop = false;
     private Vector2 _lastpos = Vector2.zero;
 
-    // Use this for initialization
+    
     void Start ()
     {
         rb2 = gameObject.GetComponent<Rigidbody2D>();
@@ -29,12 +27,12 @@ public class PlayerController : MonoBehaviour
         _lastpos = transform.position;
     }
 	
-	// Update is called once per frame
+	
 	void Update ()
     {
         DectectInput();
     }
-
+    #region
     void OnCollisionStay2D(Collision2D other)
     {
         if (other.transform != null && hit.transform !=null)
@@ -51,8 +49,6 @@ public class PlayerController : MonoBehaviour
         float horizontal =  Input.GetAxisRaw("Horizontal")*sensiX;
         
         float rawtical = Input.GetAxisRaw("Vertical")*sensiY;
-
-        
 
         switch (Mathf.RoundToInt(Input.GetAxisRaw("Vertical")))
         {
@@ -71,18 +67,6 @@ public class PlayerController : MonoBehaviour
                 Debug.LogWarning("Somehow getaxis did not return -1,0,1");
                 break;
         }
-
-        //if( transform.position.y < _lastpos.y)
-        //{
-        //    rb2.gravityScale = echo_act_3;
-        //}
-        //else
-        //{
-        //    rb2.gravityScale = 1;
-        //}
-        //_lastpos = transform.position;
-
-        
 
         hit = Physics2D.Raycast(transform.position, Vector2.down, DownDetector, layerMask);
         
@@ -137,5 +121,10 @@ public class PlayerController : MonoBehaviour
         }
 
         rb2.AddForce(new Vector2(horizontal, vertical)*Time.deltaTime, ForceMode2D.Impulse);
+    }
+    #endregion
+    public void Die()
+    {
+        Debug.Log("Les vivants morts: ceux qui tolèrent l'injustice");
     }
 }
