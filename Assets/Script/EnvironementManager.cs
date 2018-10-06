@@ -23,30 +23,30 @@ public class EnvironementManager : MonoBehaviour
 
         if (tilemap.GetTile(new Vector3Int(pos.x - 1, pos.y, pos.z)) != null && !BlockIsStable(new Vector3Int(pos.x - 1, pos.y, pos.z)))
         {
-            tilemap.SetTile(new Vector3Int(pos.x - 1, pos.y, pos.z), null);
+            BreakTile(new Vector3Int(pos.x - 1, pos.y, pos.z));
             SpawnFallingBlock(new Vector3Int(pos.x - 1, pos.y, pos.z));
         }
         if (tilemap.GetTile(new Vector3Int(pos.x + 1, pos.y, pos.z)) != null && !BlockIsStable(new Vector3Int(pos.x + 1, pos.y, pos.z)))
         {
-            tilemap.SetTile(new Vector3Int(pos.x + 1, pos.y, pos.z), null);
-            SpawnFallingBlock(new Vector3Int(pos.x - 1, pos.y, pos.z));
+            BreakTile(new Vector3Int(pos.x + 1, pos.y, pos.z));
+            SpawnFallingBlock(new Vector3Int(pos.x + 1, pos.y, pos.z));
         }
         if (tilemap.GetTile(new Vector3Int(pos.x, pos.y + 1, pos.z)) != null && !BlockIsStable(new Vector3Int(pos.x, pos.y + 1, pos.z)))
         {
-            tilemap.SetTile(new Vector3Int(pos.x, pos.y + 1, pos.z), null);
-            SpawnFallingBlock(new Vector3Int(pos.x - 1, pos.y, pos.z));
+            BreakTile(new Vector3Int(pos.x, pos.y + 1, pos.z));
+            SpawnFallingBlock(new Vector3Int(pos.x, pos.y + 1, pos.z));
         }
     }
 
-    bool BlockIsStable(Vector3Int pos, int loopUnder = 0)
+    bool BlockIsStable(Vector3Int pos, int loopUnder = 0, bool checkedLeft = false, bool checkedRight = false)
     {
         if (BlockStableUnder(pos, loopUnder))
             return true;
 
-        if (BlockStableLeft(pos))
+        if (!checkedLeft && BlockStableLeft(pos))
             return true;
 
-        if (BlockStableRight(pos))
+        if (!checkedRight && BlockStableRight(pos))
             return true;
 
         return false;
@@ -68,7 +68,7 @@ public class EnvironementManager : MonoBehaviour
         if (tilemap.GetTile(pos) == imuable)
             return true;
 
-        if (tilemap.GetTile(new Vector3Int(pos.x - 1, pos.y, pos.z)) != null && BlockIsStable(new Vector3Int(pos.x - 1, pos.y, pos.z)))
+        if (tilemap.GetTile(new Vector3Int(pos.x - 1, pos.y, pos.z)) != null && BlockIsStable(new Vector3Int(pos.x - 1, pos.y, pos.z), 0, false, true))
             return true;
 
         return false;
@@ -79,7 +79,7 @@ public class EnvironementManager : MonoBehaviour
         if (tilemap.GetTile(pos) == imuable)
             return true;
 
-        if (tilemap.GetTile(new Vector3Int(pos.x + 1, pos.y, pos.z)) != null && BlockIsStable(new Vector3Int(pos.x + 1, pos.y, pos.z)))
+        if (tilemap.GetTile(new Vector3Int(pos.x + 1, pos.y, pos.z)) != null && BlockIsStable(new Vector3Int(pos.x + 1, pos.y, pos.z), 0, true, false))
             return true;
 
         return false;
@@ -104,8 +104,8 @@ public class EnvironementManager : MonoBehaviour
         }
         else
         {
-            tile = tilemap.GetTile(new Vector3Int(pos.x, pos.y + 1, pos.z));
-            int index = int.Parse(tile.name.Substring(5)) + ((int)ITileType.Dirt + 1);
+            tile = tilemap.GetTile(new Vector3Int(pos.x, pos.y - 2, pos.z));
+            int index = int.Parse(tile.name.Substring(5));
             return (TileBase)Resources.Load("Dirt_" + index);
         }
     }
