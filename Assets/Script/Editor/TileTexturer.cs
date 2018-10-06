@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -29,7 +28,7 @@ public class TileTexturer : EditorWindow
         {
             BoundsInt bounds = tilemap.cellBounds;
 
-            string tilePrefix = "Assets/Tiles/" + tileType.ToString() + "/" + tileType.ToString() + "_";
+            string tilePrefix = "Assets/Tiles/" + tileType.ToString() + "/Resources/" + tileType.ToString() + "_";
 
             for (int x = 0; x < (int)tileType; x++)
             {
@@ -46,10 +45,4 @@ public class TileTexturer : EditorWindow
             }
         }
     }
-}
-
-[Flags]
-public enum ITileType
-{
-    Dirt = 19
 }
