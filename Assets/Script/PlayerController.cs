@@ -33,6 +33,9 @@ public class PlayerController : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
+<<<<<<< HEAD
+>>>>>>> 26f285ae27df3e2756e31ec432f0687368a8cfcb
+=======
 >>>>>>> 26f285ae27df3e2756e31ec432f0687368a8cfcb
         rb2 = gameObject.GetComponent<Rigidbody2D>();
         layerMask = ~layerMask;
@@ -48,6 +51,7 @@ public class PlayerController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+<<<<<<< HEAD
 >>>>>>> 26f285ae27df3e2756e31ec432f0687368a8cfcb
         DectectInput();
     }
@@ -58,6 +62,10 @@ public class PlayerController : MonoBehaviour
 
         if (other.transform != null && hit.transform != null)
 =======
+=======
+        DectectInput();
+    }
+>>>>>>> 26f285ae27df3e2756e31ec432f0687368a8cfcb
 
     void OnCollisionStay2D(Collision2D other)
     {
@@ -68,11 +76,18 @@ public class PlayerController : MonoBehaviour
             {
                 IsGrounded = true;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
             }
         }
     }
     
+=======
+            }
+        }
+    }
+
+>>>>>>> 26f285ae27df3e2756e31ec432f0687368a8cfcb
 =======
             }
         }
@@ -109,6 +124,7 @@ public class PlayerController : MonoBehaviour
 
         if (hit.collider == null)
 
+<<<<<<< HEAD
         {
             IsGrounded = false;
 
@@ -118,6 +134,18 @@ public class PlayerController : MonoBehaviour
         {
 
 =======
+        
+        if(hit.collider == null)
+        {
+            IsGrounded = false;
+        }
+
+
+        if (IsGrounded == false)
+        {
+>>>>>>> 26f285ae27df3e2756e31ec432f0687368a8cfcb
+=======
+        hit = Physics2D.Raycast(transform.position, Vector2.down, DownDetector, layerMask);
         
         if(hit.collider == null)
         {
@@ -156,7 +184,12 @@ public class PlayerController : MonoBehaviour
         {
             rend.flipX = true;
 <<<<<<< HEAD
+<<<<<<< HEAD
         } else if (horizontal < 0)
+=======
+        }
+        else if (horizontal < 0)
+>>>>>>> 26f285ae27df3e2756e31ec432f0687368a8cfcb
 =======
         }
         else if (horizontal < 0)
@@ -175,6 +208,7 @@ public class PlayerController : MonoBehaviour
         }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         rb2.AddForce(new Vector2(horizontal, vertical) * Time.deltaTime, ForceMode2D.Impulse);
 
     }
@@ -187,6 +221,10 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Belle journée pour mourir");
     }
+=======
+        rb2.AddForce(new Vector2(horizontal, vertical)*Time.deltaTime, ForceMode2D.Impulse);
+    }
+>>>>>>> 26f285ae27df3e2756e31ec432f0687368a8cfcb
 =======
         rb2.AddForce(new Vector2(horizontal, vertical)*Time.deltaTime, ForceMode2D.Impulse);
     }
