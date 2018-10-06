@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
     Rigidbody2D rb2;
     [SerializeField]
     float sensiX = 1;
@@ -23,7 +24,8 @@ public class PlayerController : MonoBehaviour {
     private Vector2 _lastpos = Vector2.zero;
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
         rb2 = gameObject.GetComponent<Rigidbody2D>();
         layerMask = ~layerMask;
         rend = gameObject.GetComponent<SpriteRenderer>();
@@ -31,22 +33,22 @@ public class PlayerController : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
         DectectInput();
-
     }
+
     void OnCollisionStay2D(Collision2D other)
     {
-        
         if (other.transform != null && hit.transform !=null)
         {
             if (other.transform.name == hit.transform.name)
             {
                 IsGrounded = true;
-               
             }
         }
     }
+
     void DectectInput()
     {
         float horizontal =  Input.GetAxisRaw("Horizontal")*sensiX;
@@ -60,8 +62,6 @@ public class PlayerController : MonoBehaviour {
             case 1:
                 
                 vertical = 1 * sensiY;
-                
-                
                 break;
             case -1:
                
@@ -90,20 +90,13 @@ public class PlayerController : MonoBehaviour {
         hit = Physics2D.Raycast(transform.position, Vector2.down, DownDetector, layerMask);
         
         if(hit.collider == null)
-        
         {
-            
-                IsGrounded = false;
-               
+            IsGrounded = false;
         }
-
-        
-
 
 
         if (IsGrounded == false)
         {
-           
             vertical = 0;
         }
         
@@ -118,11 +111,11 @@ public class PlayerController : MonoBehaviour {
         {
             rb2.gravityScale = 1;
         }
-
     }
+
     private void Move(float horizontal, float vertical)
     {
-         if (horizontal == 0)
+        if (horizontal == 0)
         {
             rb2.velocity = new Vector2(0, rb2.velocity.y);
         }
@@ -131,7 +124,8 @@ public class PlayerController : MonoBehaviour {
         if (horizontal > 0)
         {
             rend.flipX = true;
-        }else if (horizontal < 0)
+        }
+        else if (horizontal < 0)
         {
             rend.flipX = false;
         }
@@ -146,10 +140,5 @@ public class PlayerController : MonoBehaviour {
         }
 
         rb2.AddForce(new Vector2(horizontal, vertical)*Time.deltaTime, ForceMode2D.Impulse);
-
     }
-
-    
-
-
 }
