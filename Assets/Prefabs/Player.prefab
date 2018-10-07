@@ -138,7 +138,7 @@ MonoBehaviour:
   UseKey: 0
   TakeKey: 0
   setuped: 0
-  sensiX: 30
+  sensiX: 10
   sensiY: 7
   DownDetector: 0.5
   layerMask: 512
