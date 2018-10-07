@@ -3,14 +3,15 @@
 public class PlayerController : MonoBehaviour
 {
     //Definition des Inputs
-    /*[HideInInspector]*/
-    public string Horizontal;
+    [HideInInspector]
+     public string Horizontal;
     [HideInInspector] public string Vertical;
     [HideInInspector] public KeyCode JumpKey;
     [HideInInspector] public KeyCode UseKey;
     [HideInInspector] public KeyCode TakeKey;
     public bool setuped = false;
 
+    //variable pour le movement processing
     [Space]
     Rigidbody2D rb2;
     [SerializeField]
@@ -27,9 +28,10 @@ public class PlayerController : MonoBehaviour
     RaycastHit2D hit;
     SpriteRenderer rend;
 
+    //variables de mort
+
     [SerializeField]
     AudioClip DeathSound;
-
     GameObject GameManager;
 
 
@@ -47,19 +49,6 @@ public class PlayerController : MonoBehaviour
         ShortInput();
     }
     #region
-
-    void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.transform != null && hit.transform != null)
-        {
-            if (other.transform.name == hit.transform.name)
-            {
-                IsGrounded = true;
-            }
-        }
-    }
-
-
     void OnCollisionStay2D(Collision2D other)
     {
         if (other.transform != null && hit.transform != null)
@@ -73,7 +62,7 @@ public class PlayerController : MonoBehaviour
 
     void ShortInput()
     {
-        // Si il faut rajouter su code pour différencer les manettes c'est ici
+        // Si il faut rajouter du code pour différencer les manettes c'est ici
         float horizontal = Input.GetAxisRaw(Horizontal) * sensiX;
         float rawtical = Input.GetAxisRaw(Vertical) * sensiY;
 
@@ -84,30 +73,18 @@ public class PlayerController : MonoBehaviour
     {
         //Ici on preprocess les inputs
 
-        switch (Mathf.RoundToInt(vertical))
+        
+
+        if (Input.GetKeyDown(JumpKey))
         {
-            case 1:
-
-                vertical = 1 * sensiY;
-                break;
-            case -1:
-
-                break;
-            case 0:
-
-                vertical = 0;
-                break;
-            default:
-                Debug.LogWarning("Somehow getaxis did not return -1,0,1");
-                break;
+            vertical =  sensiY;
+        }
+        if (Input.GetKeyUp(JumpKey))
+        {
+            rb2.velocity = new Vector2(rb2.velocity.x, 1 / rb2.velocity.y);
         }
 
-        hit = Physics2D.Raycast(transform.position, Vector2.down, DownDetector, layerMask);
-
-        if (hit.collider == null)
-        {
-            IsGrounded = false;
-        }
+       hit = Physics2D.Raycast(transform.position, Vector2.down, DownDetector, layerMask);
 
         Move(horizontal, vertical);
 
@@ -115,6 +92,7 @@ public class PlayerController : MonoBehaviour
         {
             rb2.gravityScale = echo_act_3;
             vertical = 0;
+            IsGrounded = false;
         }
         else
         {

@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
     float RespawnTime = 5;
     [SerializeField]
     Vector3 RespawnPosition;
+
     public void Respawn()
     {
         StartCoroutine("WaitForRespawn");
