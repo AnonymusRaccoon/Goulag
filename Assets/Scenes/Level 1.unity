@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -179,6 +179,67 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1001 &294427600
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4345067943353424, guid: f5eee23f42e32c740a46ae6b64fb96e1, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -1.538
+      objectReference: {fileID: 0}
+    - target: {fileID: 4345067943353424, guid: f5eee23f42e32c740a46ae6b64fb96e1, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0.6385
+      objectReference: {fileID: 0}
+    - target: {fileID: 4345067943353424, guid: f5eee23f42e32c740a46ae6b64fb96e1, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4345067943353424, guid: f5eee23f42e32c740a46ae6b64fb96e1, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4345067943353424, guid: f5eee23f42e32c740a46ae6b64fb96e1, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4345067943353424, guid: f5eee23f42e32c740a46ae6b64fb96e1, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4345067943353424, guid: f5eee23f42e32c740a46ae6b64fb96e1, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4345067943353424, guid: f5eee23f42e32c740a46ae6b64fb96e1, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1295779273530774, guid: f5eee23f42e32c740a46ae6b64fb96e1, type: 2}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 114482567245020594, guid: f5eee23f42e32c740a46ae6b64fb96e1,
+        type: 2}
+      propertyPath: sensiX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114482567245020594, guid: f5eee23f42e32c740a46ae6b64fb96e1,
+        type: 2}
+      propertyPath: sensiY
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114482567245020594, guid: f5eee23f42e32c740a46ae6b64fb96e1,
+        type: 2}
+      propertyPath: DeathSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 01ed6d264e5f771478d48481c06d9d5e, type: 3}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f5eee23f42e32c740a46ae6b64fb96e1, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &403186791
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,7 +250,11 @@ GameObject:
   - component: {fileID: 403186793}
   - component: {fileID: 403186792}
   - component: {fileID: 403186796}
+<<<<<<< HEAD
   - component: {fileID: 403186794}
+=======
+  - component: {fileID: 403186795}
+>>>>>>> 24906327e33c39e401b6ad12b4e7a05809725adb
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -226,13 +291,109 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 --- !u!81 &403186794
 AudioListener:
+=======
+--- !u!82 &403186795
+AudioSource:
+>>>>>>> 24906327e33c39e401b6ad12b4e7a05809725adb
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 403186791}
   m_Enabled: 1
+<<<<<<< HEAD
+=======
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+>>>>>>> 24906327e33c39e401b6ad12b4e7a05809725adb
 --- !u!114 &403186796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,7 +408,7 @@ MonoBehaviour:
   PlayerPrefab: {fileID: 1400916412662404, guid: e39e9213b04aede49a12e77bc88f11a4,
     type: 2}
   RespawnTime: 5
-  RespawnPosition: {x: -10, y: 6, z: 0}
+  RespawnPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &489446559
 GameObject:
   m_ObjectHideFlags: 0
