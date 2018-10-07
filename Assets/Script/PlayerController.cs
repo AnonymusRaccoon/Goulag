@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float DownDetector = 1;
     [SerializeField]
-    float echo_act_3 = 10;
     int layerMask = 1 << 9;
     private bool IsGrounded = true;
     RaycastHit2D hit;
@@ -47,12 +46,14 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         ShortInput();
+        
     }
     #region
     void OnCollisionStay2D(Collision2D other)
     {
         if (other.transform != null && hit.transform != null)
         {
+           
             if (other.transform.name == hit.transform.name)
             {
                 IsGrounded = true;
@@ -73,31 +74,33 @@ public class PlayerController : MonoBehaviour
     {
         //Ici on preprocess les inputs
 
-        
 
-        if (Input.GetKeyDown(JumpKey))
+        if (IsGrounded)
         {
-            vertical =  sensiY;
+            if (Input.GetKeyDown(JumpKey))
+            {
+              
+                vertical = sensiY;
+            }
+            else
+            {
+                vertical = 0;
+            }
         }
         if (Input.GetKeyUp(JumpKey))
         {
-            rb2.velocity = new Vector2(rb2.velocity.x, 1 / rb2.velocity.y);
+            rb2.velocity = new Vector2(rb2.velocity.x, rb2.velocity.y * 0.2f);
         }
 
-       hit = Physics2D.Raycast(transform.position, Vector2.down, DownDetector, layerMask);
-
-        Move(horizontal, vertical);
-
-        if (IsGrounded == false)
+        hit = Physics2D.Raycast(transform.position, Vector2.down, DownDetector, layerMask);
+        if(hit.collider == null)
         {
-            rb2.gravityScale = echo_act_3;
-            vertical = 0;
             IsGrounded = false;
         }
-        else
-        {
-            rb2.gravityScale = 1;
-        }
+
+        
+               
+        Move(horizontal, vertical);
     }
 
     private void Move(float horizontal, float vertical)
@@ -126,7 +129,7 @@ public class PlayerController : MonoBehaviour
             rend.flipY = false;
         }
 
-        rb2.AddForce(new Vector2(horizontal, vertical) * Time.deltaTime, ForceMode2D.Impulse);
+        rb2.AddForce(new Vector2(horizontal * Time.deltaTime, vertical), ForceMode2D.Impulse);
     }
     #endregion 
     public void Die()

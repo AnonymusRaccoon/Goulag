@@ -58,8 +58,8 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_GravityScale: 2
+  m_Material: {fileID: 6200000, guid: 082e03d7d0d0c5640afa7f05f0e6e8ce, type: 2}
   m_Interpolate: 1
   m_SleepingMode: 0
   m_CollisionDetection: 1
@@ -138,11 +138,11 @@ MonoBehaviour:
   UseKey: 0
   TakeKey: 0
   setuped: 0
-  sensiX: 10
-  sensiY: 15
-  DownDetector: 1
-  echo_act_3: 10
-  DeathSound: {fileID: 0}
+  sensiX: 30
+  sensiY: 7
+  DownDetector: 0.5
+  layerMask: 512
+  DeathSound: {fileID: 8300000, guid: 01ed6d264e5f771478d48481c06d9d5e, type: 3}
 --- !u!212 &212465444373585022
 SpriteRenderer:
   m_ObjectHideFlags: 1
