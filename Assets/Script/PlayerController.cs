@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float sensiX = 1;
     [SerializeField]
-    float sensiY = 1;
+    float sensiY = 1; 
     private float vertical;
     [SerializeField]
     float DownDetector = 1;
