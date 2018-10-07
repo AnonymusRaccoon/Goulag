@@ -2,15 +2,6 @@
 
 public class PlayerController : MonoBehaviour
 {
-    //Definition des Inputs
-    /*[HideInInspector]*/ public string Horizontal;
-    [HideInInspector] public string Vertical;
-    [HideInInspector] public KeyCode JumpKey;
-    [HideInInspector] public KeyCode UseKey;
-    [HideInInspector] public KeyCode TakeKey;
-    public bool setuped = false;
-
-    [Space]
     Rigidbody2D rb2;
     [SerializeField]
     float sensiX = 1;
@@ -21,7 +12,7 @@ public class PlayerController : MonoBehaviour
     float DownDetector = 1;
     [SerializeField]
     float echo_act_3 = 10;
-    int layerMask = 1 << 9;
+   int layerMask = 1 << 9;
     private bool IsGrounded = true;
     RaycastHit2D hit;
     SpriteRenderer rend;
@@ -37,7 +28,9 @@ public class PlayerController : MonoBehaviour
         rb2 = gameObject.GetComponent<Rigidbody2D>();
         layerMask = ~layerMask;
         rend = gameObject.GetComponent<SpriteRenderer>();
-        //GameManager = GameObject.FindGameObjectWithTag("GameManager");
+        GameManager = GameObject.FindGameObjectWithTag("GameManager");
+
+
     }
 	
 	
@@ -48,9 +41,19 @@ public class PlayerController : MonoBehaviour
     #region
 
     
-    void OnCollisionStay2D(Collision2D other)
+    void OnCollisionEnter2D(Collision2D other)
     {
         if (other.transform != null && hit.transform !=null)
+        {
+            if (other.transform.name == hit.transform.name)
+            {
+                IsGrounded = true;
+            }
+        }
+    }
+    void OnCollisionStay2D(Collision2D other)
+    {
+        if (other.transform != null && hit.transform != null)
         {
             if (other.transform.name == hit.transform.name)
             {
@@ -62,8 +65,9 @@ public class PlayerController : MonoBehaviour
     void ShortInput()
     {
         // Si il faut rajouter su code pour différencer les manettes c'est ici
-        float horizontal = Input.GetAxisRaw(Horizontal) * sensiX;
-        float rawtical = Input.GetAxisRaw(Vertical) * sensiY;
+        float horizontal = Input.GetAxisRaw("Horizontal") * sensiX;
+
+        float rawtical = Input.GetAxisRaw("Vertical") * sensiY;
 
         DectectInput(horizontal, rawtical);
     }
@@ -72,7 +76,7 @@ public class PlayerController : MonoBehaviour
     {
        //Ici on preprocess les inputs
 
-        switch (Mathf.RoundToInt(vertical))
+        switch (Mathf.RoundToInt(Input.GetAxisRaw("Vertical")))
         {
             case 1:
                 
@@ -97,18 +101,12 @@ public class PlayerController : MonoBehaviour
             IsGrounded = false;
         }
 
-
-        if (IsGrounded == false)
-        {
-            vertical = 0;
-        }
-        
-
         Move(horizontal, vertical);
 
         if (IsGrounded == false)
         {
             rb2.gravityScale = echo_act_3;
+            vertical = 0;
         }
         else
         {
@@ -149,7 +147,6 @@ public class PlayerController : MonoBehaviour
     {
         GameManager.GetComponent<AudioSource>().clip = DeathSound;
         GameManager.GetComponent<AudioSource>().Play();
-
         GameManager.GetComponent<GameManager>().Respawn();
         Debug.Log("Les vivants morts: ceux qui tolèrent l'injustice");
         Destroy(gameObject);

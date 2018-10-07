@@ -6,6 +6,7 @@ TagManager:
   tags:
   - FallingBlock
   - Tilemap
+  - GameManager
   layers:
   - Default
   - TransparentFX
