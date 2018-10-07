@@ -23,9 +23,6 @@ public class NetworkManager : NetworkLobbyManager
         networkAddress = "localhost";
         networkPort = 4444;
         StartHost();
-
-        foreach (string s in Input.GetJoystickNames())
-            print(s);
     }
 
     private void Update()
@@ -329,9 +326,9 @@ public class NetworkManager : NetworkLobbyManager
         }
         else
         {
-            GameObject spawnPoint = GameObject.Find("SpawnPoint(Clone)");
-            pController.transform.position = spawnPoint.transform.position;
-            Destroy(spawnPoint);
+            Vector3 pos = GameObject.Find("GameManager").GetComponent<GameManager>().RespawnPosition;
+            print(pos);
+            pController.transform.position =  new Vector3(pos.x + player * 2, pos.y, pos.z);
         }
         pController.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector3(0, 5, 0);
     }
@@ -346,5 +343,11 @@ public class NetworkManager : NetworkLobbyManager
         lobbyPlayer.GetComponent<LobbyPlayer>().GameEntered();
 
         return base.OnLobbyServerSceneLoadedForPlayer(lobbyPlayer, gamePlayer);
+    }
+
+    public override void OnLobbyServerPlayersReady()
+    {
+        gameIsRunning = true;
+        base.OnLobbyServerPlayersReady();
     }
 }
