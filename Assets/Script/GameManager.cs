@@ -7,8 +7,7 @@ public class GameManager : MonoBehaviour {
     GameObject PlayerPrefab;
     [SerializeField]
     float RespawnTime = 5;
-    [SerializeField]
-    Vector3 RespawnPosition;
+    public Vector3 RespawnPosition;
 
     public void Respawn()
     {
