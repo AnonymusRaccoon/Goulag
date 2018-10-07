@@ -50,7 +50,6 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.transform != null && hit.transform !=null)
         if (other.transform != null && hit.transform != null)
         {
             if (other.transform.name == hit.transform.name)
