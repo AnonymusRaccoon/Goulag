@@ -2,17 +2,27 @@
 
 public class PlayerController : MonoBehaviour
 {
+    //Definition des Inputs
+    /*[HideInInspector]*/
+    public string Horizontal;
+    [HideInInspector] public string Vertical;
+    [HideInInspector] public KeyCode JumpKey;
+    [HideInInspector] public KeyCode UseKey;
+    [HideInInspector] public KeyCode TakeKey;
+    public bool setuped = false;
+
+    [Space]
     Rigidbody2D rb2;
     [SerializeField]
     float sensiX = 1;
     [SerializeField]
-    float sensiY = 1; 
+    float sensiY = 1;
     private float vertical;
     [SerializeField]
     float DownDetector = 1;
     [SerializeField]
     float echo_act_3 = 10;
-   int layerMask = 1 << 9;
+    int layerMask = 1 << 9;
     private bool IsGrounded = true;
     RaycastHit2D hit;
     SpriteRenderer rend;
@@ -22,28 +32,26 @@ public class PlayerController : MonoBehaviour
 
     GameObject GameManager;
 
-    
-    void Start ()
+
+    void Start()
     {
         rb2 = gameObject.GetComponent<Rigidbody2D>();
         layerMask = ~layerMask;
         rend = gameObject.GetComponent<SpriteRenderer>();
         GameManager = GameObject.FindGameObjectWithTag("GameManager");
-
-
     }
-	
-	
-	void Update ()
+
+
+    void Update()
     {
         ShortInput();
     }
     #region
 
-    
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.transform != null && hit.transform !=null)
+        if (other.transform != null && hit.transform != null)
         {
             if (other.transform.name == hit.transform.name)
             {
@@ -51,6 +59,8 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+
     void OnCollisionStay2D(Collision2D other)
     {
         if (other.transform != null && hit.transform != null)
@@ -65,28 +75,27 @@ public class PlayerController : MonoBehaviour
     void ShortInput()
     {
         // Si il faut rajouter su code pour différencer les manettes c'est ici
-        float horizontal = Input.GetAxisRaw("Horizontal") * sensiX;
-
-        float rawtical = Input.GetAxisRaw("Vertical") * sensiY;
+        float horizontal = Input.GetAxisRaw(Horizontal) * sensiX;
+        float rawtical = Input.GetAxisRaw(Vertical) * sensiY;
 
         DectectInput(horizontal, rawtical);
     }
 
     void DectectInput(float horizontal, float rawtical)
     {
-       //Ici on preprocess les inputs
+        //Ici on preprocess les inputs
 
-        switch (Mathf.RoundToInt(Input.GetAxisRaw("Vertical")))
+        switch (Mathf.RoundToInt(vertical))
         {
             case 1:
-                
+
                 vertical = 1 * sensiY;
                 break;
             case -1:
-               
+
                 break;
             case 0:
-            
+
                 vertical = 0;
                 break;
             default:
@@ -95,8 +104,8 @@ public class PlayerController : MonoBehaviour
         }
 
         hit = Physics2D.Raycast(transform.position, Vector2.down, DownDetector, layerMask);
-        
-        if(hit.collider == null)
+
+        if (hit.collider == null)
         {
             IsGrounded = false;
         }
@@ -131,16 +140,16 @@ public class PlayerController : MonoBehaviour
             rend.flipX = false;
         }
 
-        if(vertical > 0)
+        if (vertical > 0)
         {
-             rend.flipY = true;
+            rend.flipY = true;
         }
         else
         {
             rend.flipY = false;
         }
 
-        rb2.AddForce(new Vector2(horizontal, vertical)*Time.deltaTime, ForceMode2D.Impulse);
+        rb2.AddForce(new Vector2(horizontal, vertical) * Time.deltaTime, ForceMode2D.Impulse);
     }
     #endregion 
     public void Die()
