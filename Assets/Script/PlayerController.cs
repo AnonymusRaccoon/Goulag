@@ -3,8 +3,7 @@
 public class PlayerController : MonoBehaviour
 {
     //Definition des Inputs
-    /*[HideInInspector]*/
-    public string Horizontal;
+    [HideInInspector] public string Horizontal;
     [HideInInspector] public string Vertical;
     [HideInInspector] public KeyCode JumpKey;
     [HideInInspector] public KeyCode UseKey;
