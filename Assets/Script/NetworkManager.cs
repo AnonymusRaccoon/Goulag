@@ -320,8 +320,13 @@ public class NetworkManager : NetworkLobbyManager
         }
 
         pController.setuped = true;
+
         if (!gameIsRunning)
+        {
             pController.transform.position = new Vector3(player * 2, 2, 0);
+            pController.transform.GetComponent<SpriteRenderer>().enabled = true;
+            pController.transform.GetComponent<PlayerController>().enabled = true;
+        }
         else
         {
             GameObject spawnPoint = GameObject.Find("SpawnPoint(Clone)");
