@@ -2,6 +2,15 @@
 
 public class PlayerController : MonoBehaviour
 {
+    //Definition des Inputs
+    /*[HideInInspector]*/ public string Horizontal;
+    [HideInInspector] public string Vertical;
+    [HideInInspector] public KeyCode JumpKey;
+    [HideInInspector] public KeyCode UseKey;
+    [HideInInspector] public KeyCode TakeKey;
+    public bool setuped = false;
+
+    [Space]
     Rigidbody2D rb2;
     [SerializeField]
     float sensiX = 1;
@@ -12,7 +21,7 @@ public class PlayerController : MonoBehaviour
     float DownDetector = 1;
     [SerializeField]
     float echo_act_3 = 10;
-   int layerMask = 1 << 9;
+    int layerMask = 1 << 9;
     private bool IsGrounded = true;
     RaycastHit2D hit;
     SpriteRenderer rend;
@@ -28,15 +37,13 @@ public class PlayerController : MonoBehaviour
         rb2 = gameObject.GetComponent<Rigidbody2D>();
         layerMask = ~layerMask;
         rend = gameObject.GetComponent<SpriteRenderer>();
-        GameManager = GameObject.FindGameObjectWithTag("GameManager");
-
-
+        //GameManager = GameObject.FindGameObjectWithTag("GameManager");
     }
 	
 	
 	void Update ()
     {
-       
+        ShortInput();
     }
     #region
 
@@ -55,9 +62,8 @@ public class PlayerController : MonoBehaviour
     void ShortInput()
     {
         // Si il faut rajouter su code pour différencer les manettes c'est ici
-        float horizontal = Input.GetAxisRaw("Horizontal") * sensiX;
-
-        float rawtical = Input.GetAxisRaw("Vertical") * sensiY;
+        float horizontal = Input.GetAxisRaw(Horizontal) * sensiX;
+        float rawtical = Input.GetAxisRaw(Vertical) * sensiY;
 
         DectectInput(horizontal, rawtical);
     }
@@ -66,7 +72,7 @@ public class PlayerController : MonoBehaviour
     {
        //Ici on preprocess les inputs
 
-        switch (Mathf.RoundToInt(Input.GetAxisRaw("Vertical")))
+        switch (Mathf.RoundToInt(vertical))
         {
             case 1:
                 

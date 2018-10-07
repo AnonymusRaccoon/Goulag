@@ -10,6 +10,7 @@ public class FallingBlock : MonoBehaviour
 
         if (collision.transform.tag == "Player")
         {
+            collision.transform.GetComponent<PlayerController>().Die();
             return;
         }
 
