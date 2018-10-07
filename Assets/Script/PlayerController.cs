@@ -16,7 +16,11 @@ public class PlayerController : MonoBehaviour
     private bool IsGrounded = true;
     RaycastHit2D hit;
     SpriteRenderer rend;
-    private Vector2 _lastpos = Vector2.zero;
+
+    [SerializeField]
+    AudioClip DeathSound;
+
+    GameObject GameManager;
 
     
     void Start ()
@@ -24,15 +28,19 @@ public class PlayerController : MonoBehaviour
         rb2 = gameObject.GetComponent<Rigidbody2D>();
         layerMask = ~layerMask;
         rend = gameObject.GetComponent<SpriteRenderer>();
-        _lastpos = transform.position;
+        GameManager = GameObject.FindGameObjectWithTag("GameManager");
+
+
     }
 	
 	
 	void Update ()
     {
-        DectectInput();
+       
     }
     #region
+
+    
     void OnCollisionStay2D(Collision2D other)
     {
         if (other.transform != null && hit.transform !=null)
@@ -44,11 +52,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void DectectInput()
+    void ShortInput()
     {
-        float horizontal =  Input.GetAxisRaw("Horizontal")*sensiX;
-        
-        float rawtical = Input.GetAxisRaw("Vertical")*sensiY;
+        // Si il faut rajouter su code pour différencer les manettes c'est ici
+        float horizontal = Input.GetAxisRaw("Horizontal") * sensiX;
+
+        float rawtical = Input.GetAxisRaw("Vertical") * sensiY;
+
+        DectectInput(horizontal, rawtical);
+    }
+
+    void DectectInput(float horizontal, float rawtical)
+    {
+       //Ici on preprocess les inputs
 
         switch (Mathf.RoundToInt(Input.GetAxisRaw("Vertical")))
         {
@@ -122,9 +138,14 @@ public class PlayerController : MonoBehaviour
 
         rb2.AddForce(new Vector2(horizontal, vertical)*Time.deltaTime, ForceMode2D.Impulse);
     }
-    #endregion
+    #endregion 
     public void Die()
     {
+        GameManager.GetComponent<AudioSource>().clip = DeathSound;
+        GameManager.GetComponent<AudioSource>().Play();
+
+        GameManager.GetComponent<GameManager>().Respawn();
         Debug.Log("Les vivants morts: ceux qui tolèrent l'injustice");
+        Destroy(gameObject);
     }
 }
