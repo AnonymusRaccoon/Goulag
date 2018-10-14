@@ -22,17 +22,26 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float DownDetector = 1;
     [SerializeField]
+    float SideMargin = 0.3f;
+    [SerializeField]
     int layerMask = 1 << 9;
+   //int PlayerMask = 1 << 9;
     private bool IsGrounded = true;
     RaycastHit2D hit;
     SpriteRenderer rend;
-
+    [SerializeField]
+    ParticleSystem Particule;
     //variables de mort
 
     [SerializeField]
     AudioClip DeathSound;
     GameObject GameManager;
 
+    //Du bazar
+    AudioSource AS;
+    [SerializeField]
+    AudioClip LandingSound;
+    
 
     void Start()
     {
@@ -40,6 +49,8 @@ public class PlayerController : MonoBehaviour
         layerMask = ~layerMask;
         rend = gameObject.GetComponent<SpriteRenderer>();
         GameManager = GameObject.FindGameObjectWithTag("GameManager");
+        AS = gameObject.GetComponent<AudioSource>();
+        //gameObject.GetComponent<ParticleSystem>();
     }
 
 
@@ -49,6 +60,9 @@ public class PlayerController : MonoBehaviour
         
     }
     #region
+
+
+
     void OnCollisionStay2D(Collision2D other)
     {
         if (other.transform != null && hit.transform != null)
@@ -56,7 +70,17 @@ public class PlayerController : MonoBehaviour
            
             if (other.transform.name == hit.transform.name)
             {
+                bool _IsGrounded = true;
+
+                if(_IsGrounded != IsGrounded)
+                {
+                    //PlaySound(LandingSound);
+                    Particule.Play();
+                }
+
                 IsGrounded = true;
+                _IsGrounded = IsGrounded;
+               
             }
         }
     }
@@ -74,12 +98,12 @@ public class PlayerController : MonoBehaviour
     {
         //Ici on preprocess les inputs
 
-
+        //preprocess du saut
         if (IsGrounded)
         {
             if (Input.GetKeyDown(JumpKey))
             {
-              
+
                 vertical = sensiY;
             }
             else
@@ -93,15 +117,35 @@ public class PlayerController : MonoBehaviour
         }
 
         hit = Physics2D.Raycast(transform.position, Vector2.down, DownDetector, layerMask);
-        if(hit.collider == null)
+        if (hit.collider == null)
         {
             IsGrounded = false;
         }
+        //preprocess de mouvements latéraux
+        RaycastHit2D hitGauche = Physics2D.Raycast(transform.position, Vector2.left, SideMargin, layerMask);
+        RaycastHit2D hitDroit = Physics2D.Raycast(transform.position, Vector2.right, SideMargin, layerMask);
 
-        
-               
+        if (hitGauche.collider != null)
+        {
+            if (horizontal <= 0)
+            {
+                horizontal = 0;
+            }
+        }
+        if (hitDroit.collider != null)
+        {
+            if (horizontal >= 0)
+            {
+                horizontal = 0;
+            }
+        }
         Move(horizontal, vertical);
     }
+
+   
+    
+        
+    
 
     private void Move(float horizontal, float vertical)
     {
@@ -109,8 +153,6 @@ public class PlayerController : MonoBehaviour
         {
             rb2.velocity = new Vector2(0, rb2.velocity.y);
         }
-
-
         if (horizontal > 0)
         {
             rend.flipX = true;
@@ -128,16 +170,23 @@ public class PlayerController : MonoBehaviour
         {
             rend.flipY = false;
         }
+        
 
-        rb2.AddForce(new Vector2(horizontal * Time.deltaTime, vertical), ForceMode2D.Impulse);
+        rb2.AddForce(new Vector2(0, vertical), ForceMode2D.Impulse);
+        rb2.velocity = new Vector2(horizontal * Time.deltaTime, rb2.velocity.y);
     }
     #endregion 
     public void Die()
     {
-        GameManager.GetComponent<AudioSource>().clip = DeathSound;
+        GameManager.GetComponent<AudioSource>().clip =DeathSound;
         GameManager.GetComponent<AudioSource>().Play();
         GameManager.GetComponent<GameManager>().Respawn();
         Debug.Log("Les vivants morts: ceux qui tolèrent l'injustice");
         Destroy(gameObject);
+    }
+    void PlaySound(AudioClip son)
+    {
+        AS.clip = son;
+        AS.Play();
     }
 }
