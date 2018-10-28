@@ -10,14 +10,14 @@ public class EnvironementManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector3 pos = cam.ScreenToWorldPoint(Input.mousePosition);
-            BreakTile(tilemap.WorldToCell(pos));
-        }
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    Vector3 pos = cam.ScreenToWorldPoint(Input.mousePosition);
+        //    BreakTile(tilemap.WorldToCell(pos));
+        //}
     }
 
-    void BreakTile(Vector3Int pos)
+    public void BreakTile(Vector3Int pos)
     {
         tilemap.SetTile(pos, null);
 
