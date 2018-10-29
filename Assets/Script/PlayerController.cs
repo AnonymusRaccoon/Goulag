@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
     SpriteRenderer rend;
     [SerializeField]
     ParticleSystem Particule;
+    [SerializeField]
+    float UseRange = 1;
     //variables de mort
 
     [SerializeField]
@@ -50,6 +52,7 @@ public class PlayerController : MonoBehaviour
         rend = gameObject.GetComponent<SpriteRenderer>();
         GameManager = GameObject.FindGameObjectWithTag("GameManager");
         AS = gameObject.GetComponent<AudioSource>();
+        Particule = GetComponentInChildren<ParticleSystem>();
         //gameObject.GetComponent<ParticleSystem>();
     }
 
@@ -140,6 +143,34 @@ public class PlayerController : MonoBehaviour
             }
         }
         Move(horizontal, vertical);
+
+        //on check pour péter un block
+
+        if (Input.GetKey(UseKey))
+        {
+            Debug.Log("here");
+            Ray2D DestroyRay = new Ray2D(transform.position,Vector2.right);
+            RaycastHit2D hit;
+
+            if (rend.flipX)
+            {           
+                hit = Physics2D.Raycast(DestroyRay.origin, DestroyRay.direction, UseRange, layerMask);
+                Debug.DrawRay(DestroyRay.origin, DestroyRay.direction, Color.blue);
+            }
+            else
+            {
+                DestroyRay = new Ray2D(transform.position, Vector2.left);
+                hit = Physics2D.Raycast(DestroyRay.origin, DestroyRay.direction, UseRange, layerMask);
+                Debug.DrawRay(DestroyRay.origin, DestroyRay.direction, Color.blue);
+            }
+
+            if(hit.collider != null)
+            {
+                GameManager.GetComponent<EnvironementManager>().BreakTile(new Vector3Int(Mathf.RoundToInt(hit.transform.position[0]), Mathf.RoundToInt(hit.transform.position[1]), Mathf.RoundToInt(hit.transform.position[2]) ));
+            }
+        }
+
+
     }
 
    
