@@ -514,6 +514,7 @@ GameObject:
   m_Component:
   - component: {fileID: 925349207}
   - component: {fileID: 925349206}
+  - component: {fileID: 925349208}
   m_Layer: 0
   m_Name: "B\xE9ton-Menu"
   m_TagString: Untagged
@@ -574,12 +575,24 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 925349205}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.28, y: -4.09, z: -9.075662}
+  m_LocalPosition: {x: 0.28, y: -2.33, z: -9.075662}
   m_LocalScale: {x: 1.9704711, y: 0.43593055, z: 1}
   m_Children: []
   m_Father: {fileID: 458587140}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &925349208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 925349205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27b928e8d27c1914cab981bd83f0a867, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 0.5
 --- !u!1 &1184867774
 GameObject:
   m_ObjectHideFlags: 0

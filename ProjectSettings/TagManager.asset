@@ -41,6 +41,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 464103245
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Devant (rages pas)
+    uniqueID: 3182777809
+    locked: 0
+  - name: Quad
+    uniqueID: 576222387
     locked: 0
