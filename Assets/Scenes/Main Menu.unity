@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -581,44 +581,18 @@ Transform:
   m_Father: {fileID: 458587140}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
---- !u!61 &925349208
-BoxCollider2D:
-=======
 --- !u!114 &925349208
 MonoBehaviour:
->>>>>>> db5d16190c19ee007acdfb0586fde7bb6a5ac3d1
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 925349205}
   m_Enabled: 1
-<<<<<<< HEAD
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 10.24, y: 7.68}
-    newSize: {x: 10.24, y: 7.68}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 10.24, y: 7.68}
-  m_EdgeRadius: 0
-=======
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 27b928e8d27c1914cab981bd83f0a867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 0.5
->>>>>>> db5d16190c19ee007acdfb0586fde7bb6a5ac3d1
 --- !u!1 &1184867774
 GameObject:
   m_ObjectHideFlags: 0
