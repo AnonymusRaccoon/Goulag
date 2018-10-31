@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
                 if(_IsGrounded != IsGrounded)
                 {
                     //PlaySound(LandingSound);
-                    Particule.Play();
+                    //Particule.Play();         //JE L'AI DESACTIVÉ PARCEQUE Y AVAIT PAS DE REFERENCE, CT CHIANT. A PLUS. J'ESPERE QUE CA CASSE PAS TOUT. ALLEZ SALUT.
                 }
 
                 IsGrounded = true;
@@ -149,7 +149,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(UseKey))
         {
             Debug.Log("here");
-            Ray2D DestroyRay = new Ray2D(transform.position,Vector2.right);
+            Ray2D DestroyRay = new Ray2D(transform.position, Vector2.right);
             RaycastHit2D hit;
 
             if (rend.flipX)
@@ -164,6 +164,7 @@ public class PlayerController : MonoBehaviour
                 Debug.DrawRay(DestroyRay.origin, DestroyRay.direction, Color.blue);
             }
 
+            print(hit.collider);
             if(hit.collider != null)
             {
                 GameManager.GetComponent<EnvironementManager>().BreakTile(new Vector3Int(Mathf.RoundToInt(hit.transform.position[0]), Mathf.RoundToInt(hit.transform.position[1]), Mathf.RoundToInt(hit.transform.position[2]) ));

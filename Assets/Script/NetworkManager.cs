@@ -264,7 +264,6 @@ public class NetworkManager : NetworkLobbyManager
                 pController.Horizontal = "Horizontal_J" + ControllerP2;
                 pController.Vertical = "Vertical_J" + ControllerP2;
                 pController.JumpKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), "Joystick" + ControllerP2 + "Button0");
-                pController.JumpKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), "Joystick" + ControllerP2 + "Button0");
                 pController.UseKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), "Joystick" + ControllerP2 + "Button2");
                 pController.TakeKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), "Joystick" + ControllerP2 + "Button1");
             }
@@ -287,7 +286,6 @@ public class NetworkManager : NetworkLobbyManager
                 pController.Horizontal = "Horizontal_J" + ControllerP3;
                 pController.Vertical = "Vertical_J" + ControllerP3;
                 pController.JumpKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), "Joystick" + ControllerP3 + "Button0");
-                pController.JumpKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), "Joystick" + ControllerP3 + "Button0");
                 pController.UseKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), "Joystick" + ControllerP3 + "Button2");
                 pController.TakeKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), "Joystick" + ControllerP3 + "Button1");
             }
@@ -309,7 +307,6 @@ public class NetworkManager : NetworkLobbyManager
             {
                 pController.Horizontal = "Horizontal_J" + ControllerP4;
                 pController.Vertical = "Vertical_J" + ControllerP4;
-                pController.JumpKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), "Joystick" + ControllerP4 + "Button0");
                 pController.JumpKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), "Joystick" + ControllerP4 + "Button0");
                 pController.UseKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), "Joystick" + ControllerP4 + "Button2");
                 pController.TakeKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), "Joystick" + ControllerP4 + "Button1");
