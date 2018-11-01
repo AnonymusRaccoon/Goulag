@@ -323,8 +323,7 @@ public class NetworkManager : NetworkLobbyManager
         }
         else
         {
-            Vector3 pos = GameObject.Find("GameManager").GetComponent<GameManager>().RespawnPosition;
-            print(pos);
+            Vector3 pos = GameObject.Find("GameManager").GetComponent<GameManager>().SpawnPosition;
             pController.transform.position =  new Vector3(pos.x + player * 2, pos.y, pos.z);
         }
         pController.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector3(0, 5, 0);

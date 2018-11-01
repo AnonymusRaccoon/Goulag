@@ -8,16 +8,13 @@ public class EnvironementManager : MonoBehaviour
     public TileBase imuable;
     public GameObject FalllingDirt;
 
-    private void Update()
+    public void Mine(float x, float y)
     {
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    Vector3 pos = cam.ScreenToWorldPoint(Input.mousePosition);
-        //    BreakTile(tilemap.WorldToCell(pos));
-        //}
+        Vector3Int pos = tilemap.WorldToCell(new Vector3(x, y));
+        BreakTile(pos);
     }
 
-    public void BreakTile(Vector3Int pos)
+    private void BreakTile(Vector3Int pos)
     {
         tilemap.SetTile(pos, null);
 

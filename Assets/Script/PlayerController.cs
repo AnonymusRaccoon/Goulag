@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Threading.Tasks;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,10 +15,6 @@ public class PlayerController : MonoBehaviour
     //variable pour le movement processing
     [Space]
     Rigidbody2D rb2;
-    [SerializeField]
-    float sensiX = 1;
-    [SerializeField]
-    float sensiY = 1;
     private float vertical;
     [SerializeField]
     float DownDetector = 1;
@@ -25,7 +22,7 @@ public class PlayerController : MonoBehaviour
     float SideMargin = 0.3f;
     [SerializeField]
     int layerMask = 1 << 9;
-   //int PlayerMask = 1 << 9;
+    //int PlayerMask = 1 << 9;
     private bool IsGrounded = true;
     RaycastHit2D hit;
     SpriteRenderer rend;
@@ -33,8 +30,8 @@ public class PlayerController : MonoBehaviour
     ParticleSystem Particule;
     [SerializeField]
     float UseRange = 1;
-    //variables de mort
 
+    //variables de mort
     [SerializeField]
     AudioClip DeathSound;
     GameObject GameManager;
@@ -43,6 +40,7 @@ public class PlayerController : MonoBehaviour
     AudioSource AS;
     [SerializeField]
     AudioClip LandingSound;
+    private EnvironementManager EnvironementManager;
     
 
     void Start()
@@ -53,6 +51,7 @@ public class PlayerController : MonoBehaviour
         GameManager = GameObject.FindGameObjectWithTag("GameManager");
         AS = gameObject.GetComponent<AudioSource>();
         Particule = GetComponentInChildren<ParticleSystem>();
+        EnvironementManager = GameManager.GetComponent<EnvironementManager>();
         //gameObject.GetComponent<ParticleSystem>();
     }
 
@@ -91,8 +90,8 @@ public class PlayerController : MonoBehaviour
     void ShortInput()
     {
         // Si il faut rajouter du code pour différencer les manettes c'est ici
-        float horizontal = Input.GetAxisRaw(Horizontal) * sensiX;
-        float rawtical = Input.GetAxisRaw(Vertical) * sensiY;
+        float horizontal = Input.GetAxisRaw(Horizontal);
+        float rawtical = Input.GetAxisRaw(Vertical);
 
         DectectInput(horizontal, rawtical);
     }
@@ -107,7 +106,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(JumpKey))
             {
 
-                vertical = sensiY;
+                vertical = 1;
             }
             else
             {
@@ -124,6 +123,7 @@ public class PlayerController : MonoBehaviour
         {
             IsGrounded = false;
         }
+
         //preprocess de mouvements latéraux
         RaycastHit2D hitGauche = Physics2D.Raycast(transform.position, Vector2.left, SideMargin, layerMask);
         RaycastHit2D hitDroit = Physics2D.Raycast(transform.position, Vector2.right, SideMargin, layerMask);
@@ -144,40 +144,20 @@ public class PlayerController : MonoBehaviour
         }
         Move(horizontal, vertical);
 
-        //on check pour péter un block
-
+        //Use clicked, (can be mining or something else).
         if (Input.GetKey(UseKey))
         {
-            Debug.Log("here");
-            Ray2D DestroyRay = new Ray2D(transform.position, Vector2.right);
-            RaycastHit2D hit;
-
-            if (rend.flipX)
-            {           
-                hit = Physics2D.Raycast(DestroyRay.origin, DestroyRay.direction, UseRange, layerMask);
-                Debug.DrawRay(DestroyRay.origin, DestroyRay.direction, Color.blue);
-            }
-            else
+            float UseX = UseRange * (rend.flipX ? 1 : -1);
+            float UseY = 0;
+            if ((int)rawtical != 0)
             {
-                DestroyRay = new Ray2D(transform.position, Vector2.left);
-                hit = Physics2D.Raycast(DestroyRay.origin, DestroyRay.direction, UseRange, layerMask);
-                Debug.DrawRay(DestroyRay.origin, DestroyRay.direction, Color.blue);
+                UseX = 0;
+                UseY = UseRange * (int)rawtical;
             }
 
-            print(hit.collider);
-            if(hit.collider != null)
-            {
-                GameManager.GetComponent<EnvironementManager>().BreakTile(new Vector3Int(Mathf.RoundToInt(hit.transform.position[0]), Mathf.RoundToInt(hit.transform.position[1]), Mathf.RoundToInt(hit.transform.position[2]) ));
-            }
+            EnvironementManager.Mine(transform.position.x + UseX, transform.position.y + UseY);
         }
-
-
-    }
-
-   
-    
-        
-    
+    }    
 
     private void Move(float horizontal, float vertical)
     {
@@ -208,14 +188,20 @@ public class PlayerController : MonoBehaviour
         rb2.velocity = new Vector2(horizontal * Time.deltaTime, rb2.velocity.y);
     }
     #endregion 
-    public void Die()
+
+    public async void Die()
     {
         GameManager.GetComponent<AudioSource>().clip =DeathSound;
         GameManager.GetComponent<AudioSource>().Play();
-        GameManager.GetComponent<GameManager>().Respawn();
         Debug.Log("Les vivants morts: ceux qui tolèrent l'injustice");
-        Destroy(gameObject);
+        rend.enabled = false;
+        GetComponent<BoxCollider2D>().enabled = false;
+        await Task.Delay(GameManager.GetComponent<GameManager>().RespawnTime);
+        GetComponent<BoxCollider2D>().enabled = false;
+        transform.position = GameManager.GetComponent<GameManager>().SpawnPosition;
+        rend.enabled = false;
     }
+
     void PlaySound(AudioClip son)
     {
         AS.clip = son;
