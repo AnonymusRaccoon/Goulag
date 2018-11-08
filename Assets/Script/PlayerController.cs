@@ -197,9 +197,9 @@ public class PlayerController : MonoBehaviour
         rend.enabled = false;
         GetComponent<BoxCollider2D>().enabled = false;
         await Task.Delay(GameManager.GetComponent<GameManager>().RespawnTime);
-        GetComponent<BoxCollider2D>().enabled = false;
+        GetComponent<BoxCollider2D>().enabled = true;
         transform.position = GameManager.GetComponent<GameManager>().SpawnPosition;
-        rend.enabled = false;
+        rend.enabled = true;
     }
 
     void PlaySound(AudioClip son)
